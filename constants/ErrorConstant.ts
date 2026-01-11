@@ -8,6 +8,8 @@ export const ErrorConstants: ErrorConstant = {
   FAILED_TO_LOAD_FONT_SIZE: 'Failed to load your font size preference. Please try again.',
   FAILED_TO_SAVE_LARIVAAR: 'Failed to save your larivaar preference. Please try again.',
   FAILED_TO_LOAD_LARIVAAR: 'Failed to load your larivaar preference. Please try again.',
+  FAILED_TO_SAVE_PARAGRAPH_MODE: 'Failed to save your paragraph mode preference. Please try again.',
+  FAILED_TO_LOAD_PARAGRAPH_MODE: 'Failed to load your paragraph mode preference. Please try again.',
   FAILED_TO_SAVE_PATH_NAME: 'Failed to save your path name. Please try again.',
   FAILED_TO_LOAD_PATH_NAME: 'Failed to load your path name. Please try again.',
   FAILED_TO_LOAD_SEHAJ_PATHS_DATA: 'Failed to load your Sehaj Paths data. Please try again.',

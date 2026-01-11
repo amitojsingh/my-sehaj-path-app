@@ -18,7 +18,8 @@
       "@utils": ["./utils"],
       "@styles": ["./styles"],
       "@icons": ["./icons"],
-      "@hooks": ["./hooks"]
+      "@hooks": ["./hooks"],
+      "@types": ["./types"],
     }
   }
 }

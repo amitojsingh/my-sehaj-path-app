@@ -200,6 +200,25 @@ export const useLocal = () => {
     }
   };
 
+  const saveSettings = async (key: string, value: boolean, errorMessage: string) => {
+    try {
+      await AsyncStorage.setItem(key, value.toString());
+    } catch (error) {
+      showErrorAlert(errorMessage);
+      throw error;
+    }
+  };
+
+  const fetchSettings = async (key: string, errorMessage: string) => {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      return value === 'true';
+    } catch (error) {
+      showErrorAlert(errorMessage);
+      return false;
+    }
+  };
+
   const saveLarivaar = async (larivaar: boolean) => {
     try {
       await AsyncStorage.setItem('larivaar', larivaar.toString());
@@ -259,5 +278,7 @@ export const useLocal = () => {
     renamePath,
     saveAngsFormat,
     fetchAngsFormat,
+    saveSettings,
+    fetchSettings,
   };
 };
