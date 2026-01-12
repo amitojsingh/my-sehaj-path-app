@@ -1,13 +1,15 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { NavContent, SimpleText, FontSize, Larivaar, Angs, Analytics } from '@components';
+import { NavContent, SimpleText, FontSize, Angs, Analytics } from '@components';
 import { LeftArrowIcon } from '@icons';
 import { SettingScreenStyle, SafeAreaStyle } from '@styles';
 import { RootStackParamList } from '../App';
 import { useScreenAnalytics } from '@hooks';
 import { Constants, EDGES_ALL_SIDES } from '@constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { SettingSwitch } from '@components';
+import { BaniOptionsSettingsArray } from '@constants';
 
 type SettingProps = NativeStackScreenProps<RootStackParamList, 'Setting'>;
 
@@ -43,7 +45,15 @@ export const Settings = ({ navigation }: SettingProps) => {
             <View>
               <SimpleText simpleText={Constants.BANI_OPTIONS} />
             </View>
-            <Larivaar />
+            {BaniOptionsSettingsArray.map((setting) => (
+              <SettingSwitch
+                key={setting.settingKey}
+                settingKey={setting.settingKey}
+                label={setting.label}
+                value={setting.value}
+                errorMessage={setting.errorMessage}
+              />
+            ))}
           </View>
           <View>
             <SimpleText simpleText={'Other Settings'} />

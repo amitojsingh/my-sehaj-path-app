@@ -156,6 +156,7 @@ my-sehaj-path-app/
 - **Font Size**: Choose from Small, Medium, Large, or Extra Large
 - **Number Format**: Switch between Punjabi and English numbers
 - **Larivaar**: Enable/disable continuous text format
+- **Paragraph Mode**: Enable/ Disable Paragraph Mode. 
 - **Path Management**: Rename existing paths
 
 ## 🔧 Configuration
