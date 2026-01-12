@@ -47,6 +47,7 @@ export const Settings = ({ navigation }: SettingProps) => {
             </View>
             {BaniOptionsSettingsArray.map((setting) => (
               <SettingSwitch
+                key={setting.settingKey}
                 settingKey={setting.settingKey}
                 label={setting.label}
                 value={setting.value}

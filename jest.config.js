@@ -18,6 +18,8 @@ module.exports = {
     '@react-native-community/netinfo': '<rootDir>/__mocks__/netinfo.js',
     '@react-native-community/blur': '<rootDir>/__mocks__/blur.js',
     '@rneui/themed': '<rootDir>/__mocks__/@rneui/themed.js',
+    '@react-native-firebase/app': '<rootDir>/__mocks__/@react-native-firebase/app.js',
+    '@react-native-firebase/analytics': '<rootDir>/__mocks__/@react-native-firebase/analytics.js',
   },
 
   transformIgnorePatterns: [

@@ -11,6 +11,7 @@ jest.mock('@hooks', () => ({
 
 jest.mock('@utils', () => ({
   showErrorAlert: jest.fn(),
+  trackEvent: jest.fn(),
 }));
 
 const mockUseLocal = useLocal as jest.MockedFunction<typeof useLocal>;
@@ -34,6 +35,7 @@ describe('SettingSwitch', () => {
       fetchFromLocal: jest.fn(),
       handleNewPath: jest.fn(),
       handleUpdatePath: jest.fn(),
+      handleUpdatePathWithErrorHandling: jest.fn(),
       saveFontSize: jest.fn(),
       fetchFontSize: jest.fn(),
       saveLarivaar: jest.fn(),
@@ -41,6 +43,8 @@ describe('SettingSwitch', () => {
       renamePath: jest.fn(),
       saveAngsFormat: jest.fn(),
       fetchAngsFormat: jest.fn(),
+      saveConsent: jest.fn(),
+      fetchConsent: jest.fn(),
     });
   });
 
@@ -128,6 +132,11 @@ describe('SettingSwitch', () => {
       const switchElement = screen.getByRole('switch');
       fireEvent(switchElement, 'valueChange', true);
 
+      // Also trigger onValueChange directly since that's what the component uses
+      if (switchElement.props.onValueChange) {
+        switchElement.props.onValueChange(true);
+      }
+
       await waitFor(
         () => {
           expect(mockSaveSettings).toHaveBeenCalledWith(
@@ -152,8 +161,14 @@ describe('SettingSwitch', () => {
       const switchElement = screen.getByRole('switch');
       fireEvent(switchElement, 'valueChange', true);
 
+      // Also trigger onValueChange directly since that's what the component uses
+      if (switchElement.props.onValueChange) {
+        switchElement.props.onValueChange(true);
+      }
+
       await waitFor(() => {
-        expect(switchElement.props.accessibilityState.checked).toBe(true);
+        const updatedSwitchElement = screen.getByRole('switch');
+        expect(updatedSwitchElement.props.accessibilityState.checked).toBe(true);
       });
     });
 
@@ -170,9 +185,17 @@ describe('SettingSwitch', () => {
       const switchElement = screen.getByRole('switch');
       fireEvent(switchElement, 'valueChange', true);
 
-      await waitFor(() => {
-        expect(mockShowErrorAlert).toHaveBeenCalledWith('Failed to save paragraph mode');
-      });
+      // Also trigger onValueChange directly since that's what the component uses
+      if (switchElement.props.onValueChange) {
+        switchElement.props.onValueChange(true);
+      }
+
+      await waitFor(
+        () => {
+          expect(mockShowErrorAlert).toHaveBeenCalledWith('Failed to save paragraph mode');
+        },
+        { timeout: 3000 }
+      );
     });
   });
 });

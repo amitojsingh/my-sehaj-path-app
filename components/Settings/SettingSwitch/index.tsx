@@ -5,7 +5,7 @@ import { SimpleText } from '@components';
 import { BaniOptionsSettings } from '@types';
 import { SettingSwitchStyles } from '@styles';
 import { useLocal } from '@hooks';
-import { showErrorAlert } from '@utils';
+import { showErrorAlert, trackEvent } from '@utils';
 
 export const SettingSwitch = ({ settingKey, label, value, errorMessage }: BaniOptionsSettings) => {
   const [isSetting, setIsSetting] = useState<boolean>(value);
@@ -23,14 +23,17 @@ export const SettingSwitch = ({ settingKey, label, value, errorMessage }: BaniOp
     };
     fetchFromLocal();
   }, [fetchSettings, settingKey, errorMessage]);
+
   const handleSettingChange = async (setting: boolean) => {
     try {
       setIsSetting(setting);
+      trackEvent('Settings', 'click', `changed ${label} to ${setting ? 'enabled' : 'disabled'}`);
       await saveSettings(settingKey, setting, errorMessage);
     } catch (error) {
       showErrorAlert(errorMessage);
     }
   };
+
   return (
     <View style={container}>
       <SimpleText simpleText={label} simpleTextStyle={fontSizeText} />
