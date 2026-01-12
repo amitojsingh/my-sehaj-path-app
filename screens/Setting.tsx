@@ -1,23 +1,37 @@
 import React from 'react';
-import { SafeAreaView, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { NavContent, SimpleText, FontSize, Angs } from '@components';
-import { GoBackIcon } from '@icons';
+import { NavContent, SimpleText, FontSize, Angs, Analytics } from '@components';
+import { LeftArrowIcon } from '@icons';
 import { SettingScreenStyle, SafeAreaStyle } from '@styles';
 import { RootStackParamList } from '../App';
-import { Constants } from '@constants';
+import { useScreenAnalytics } from '@hooks';
+import { Constants, EDGES_ALL_SIDES } from '@constants';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { SettingSwitch } from '@components';
 import { BaniOptionsSettingsArray } from '@constants';
 
 type SettingProps = NativeStackScreenProps<RootStackParamList, 'Setting'>;
 
 export const Settings = ({ navigation }: SettingProps) => {
+  useScreenAnalytics('Settings', 'Settings');
   return (
-    <SafeAreaView style={SafeAreaStyle.safeAreaView}>
+    <SafeAreaView style={SafeAreaStyle.safeAreaView} edges={EDGES_ALL_SIDES}>
       <View style={SettingScreenStyle.container}>
         <View style={SettingScreenStyle.navContainer}>
-          <NavContent navIcon={<GoBackIcon />} onPress={() => navigation.goBack()} />
-          <NavContent text={Constants.SETTINGS} />
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={SettingScreenStyle.backButton}
+            accessibilityLabel="Back"
+            accessibilityRole="button"
+            accessibilityHint="Tap to go back"
+          >
+            <NavContent
+              navIcon={<LeftArrowIcon color="#fff" />}
+              onPress={() => navigation.goBack()}
+            />
+            <NavContent text={Constants.SETTINGS} contentStyle={SettingScreenStyle.navText} />
+          </TouchableOpacity>
         </View>
         <View style={SettingScreenStyle.settingContainer}>
           <View>
@@ -40,6 +54,10 @@ export const Settings = ({ navigation }: SettingProps) => {
               />
             ))}
           </View>
+          <View>
+            <SimpleText simpleText={'Other Settings'} />
+          </View>
+          <Analytics />
         </View>
       </View>
     </SafeAreaView>

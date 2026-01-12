@@ -1,19 +1,47 @@
 module.exports = {
   preset: 'react-native',
-  transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|react-native-linear-gradient|@react-native-community|@react-navigation|react-native-svg|react-native-screens|react-native-safe-area-context|react-native-swipe-gestures|react-native-size-matters|react-native-ratings|@rneui/themed|@rneui/base)/)',
-  ],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
-    '@components': '<rootDir>/components',
-    '@constants': '<rootDir>/constants',
-    '@styles': '<rootDir>/styles',
-    '@utils': '<rootDir>/utils',
-    '@hooks': '<rootDir>/hooks',
-    '@assets': '<rootDir>/assets',
-    '@icons': '<rootDir>/icons',
-    '@react-native-async-storage/async-storage':
-      '<rootDir>/__mocks__/@react-native-async-storage/async-storage.js',
-    '@react-native-community/netinfo': '<rootDir>/__mocks__/@react-native-community/netInfo.js',
-    '@types': '<rootDir>/types',
+    '^@assets/(.*)$': '<rootDir>/assets/$1',
+    '^@components/(.*)$': '<rootDir>/components/$1',
+    '^@constants/(.*)$': '<rootDir>/constants/$1',
+    '^@screens/(.*)$': '<rootDir>/screens/$1',
+    '^@utils/(.*)$': '<rootDir>/utils/$1',
+    '^@styles/(.*)$': '<rootDir>/styles/$1',
+    '^@icons/(.*)$': '<rootDir>/icons/$1',
+    '^@hooks/(.*)$': '<rootDir>/hooks/$1',
+    'react-native-linear-gradient': '<rootDir>/__mocks__/react-native-linear-gradient.js',
+    'react-native-safe-area-context': '<rootDir>/__mocks__/react-native-safe-area-context.js',
+    'react-native-svg': '<rootDir>/__mocks__/react-native-svg.js',
+    'react-native-swipe-gestures': '<rootDir>/__mocks__/react-native-swipe-gestures.js',
+    '@react-native-async-storage/async-storage': '<rootDir>/__mocks__/async-storage.js',
+    '@react-native-community/netinfo': '<rootDir>/__mocks__/netinfo.js',
+    '@react-native-community/blur': '<rootDir>/__mocks__/blur.js',
+    '@rneui/themed': '<rootDir>/__mocks__/@rneui/themed.js',
   },
+
+  transformIgnorePatterns: [
+    'node_modules/(?!(jest-)?react-native|@react-native|@react-navigation)',
+  ],
+
+  testMatch: ['**/__tests__/**/*.(test|spec).ts?(x)', '**/?(*.)+(test|spec).ts?(x)'],
+
+  testEnvironment: 'node',
+
+  testPathIgnorePatterns: ['/node_modules/', '/ios/', '/android/'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  collectCoverageFrom: [
+    'components/**/*.{ts,tsx}',
+    'utils/**/*.{ts,tsx}',
+    'screens/**/*.{ts,tsx}',
+    'hooks/**/*.{ts,tsx}',
+    '!**/*.d.ts',
+    '!**/node_modules/**',
+  ],
+
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+  },
+  clearMocks: true,
+  restoreMocks: true,
 };
